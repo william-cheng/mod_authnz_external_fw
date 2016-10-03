@@ -1,0 +1,29 @@
+External Authentication and Authorisation Module for Apache2.4
+
+Author: Yuzhong Cheng (Will)
+Email:  yuzhong.cheng@firstwave.com.au
+
+This module is modified based on the apache authnz external module written by
+phokz - https://github.com/phokz/mod-auth-external
+
+= Install =
+
+Prerequist:
+  Apache developer tool: apxs
+
+Installation Commands:
+  1. Compile the source code: apxs -c mod_authnz_external.c
+  2. Install the module: apxs -i -a mod_authnz_external.la
+
+= Configuration =
+
+DefineExternalAuth fwauth environment </path/to/ext_auth/script>
+<Location "/path/">
+  AuthType Basic
+  AuthName "G-Cloud 2FA Login"
+  AuthBasicProvider external
+  AuthExternal fwauth
+  Require valid-user
+  ErrorDocument 401 /portal/
+</Location>
+
